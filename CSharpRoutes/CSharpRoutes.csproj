@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ApplicationIcon>CSharpRoutes-icon.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.4</Version>
+    <Authors>David Legendre</Authors>
+    <Description>CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop</Description>
+    <Copyright>By David Legendre</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>CSharpRoutes icon.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>CSharpRoutes Ruta Desktop</PackageTags>
+    <PackageReleaseNotes>Version Inicial</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="CSharpRoutes icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
