@@ -1,5 +1,7 @@
 # CSharpRoutes
 CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop o descarguelo desde nuget
+-  Clone Git > https://github.com/Davidlegendre/CSharpRoutes.git
+-  Nuget > Install-Package CSharpRoutes -Version 1.0.4
 
 ## Getting Started
 
