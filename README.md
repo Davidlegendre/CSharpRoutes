@@ -1,5 +1,5 @@
 # CSharpRoutes
-CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop
+CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop o descarguelo desde nuget
 
 ## Getting Started
 
