@@ -231,7 +231,7 @@ namespace CSharpRoutes.lib.Gestiones
                     var ruta = RGestion.DirectRoutes().Find(e => e.ruta == stringruta);
                     if (ruta.Destinos.From == From)
                     {
-                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los Destinos no son iguales",
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Paquete Recibido",
                              Data = ruta.GetPaquete() });
                     }
                     return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los Destinos no son iguales" });
