@@ -88,12 +88,12 @@ RMethod.Delete(string ruta, object json)
 
 Enviar un Paquete en la ruta especifica para el objetivo especifico
 ```
-RMethod.DirectRoute(string stringruta, object paquete, object To)
+RMethod.DirectRoute(string stringruta, object paquete, Type To)
 ```
 
 Recibir un Paquete en la ruta especifica del objetivo especifico
 ```
-RMethod.DirectRoute(string stringruta, object From)
+RMethod.DirectRoute(string stringruta, Type From)
 ```
 
 Todos devuelven un json que tiene estos campos en c#

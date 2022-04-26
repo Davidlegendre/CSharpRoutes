@@ -189,14 +189,14 @@ namespace CSharpRoutes.lib.Gestiones
         /// <returns>
         /// Json diciendo que el paquete ha sido entregado o algunos errores
         /// </returns>
-        public static object DirectRoute(string stringruta, object paquete, object To)
+        public static object DirectRoute(string stringruta, object paquete, Type To)
         {
             if (!string.IsNullOrWhiteSpace(stringruta) && paquete!=null && To != null)
             {
                 if (RGestion.IsRouteExits(Metodos.MDestinos, stringruta))
                 {
                     var ruta = RGestion.DirectRoutes().Find(e => e.ruta == stringruta);
-                    if (ruta.Destinos.To.GetType() == To.GetType())
+                    if (ruta.Destinos.To == To)
                     {
                         ruta.SetPaquete(paquete);
                         return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Paquete Entregado" });
@@ -222,14 +222,14 @@ namespace CSharpRoutes.lib.Gestiones
         /// <returns>
         /// retorna json con el paquete o algunos errores
         /// </returns>
-        public static object DirectRoute(string stringruta, object From)
+        public static object DirectRoute(string stringruta, Type From)
         {
             if (!string.IsNullOrWhiteSpace(stringruta) && From != null)
             {
                 if (RGestion.IsRouteExits(Metodos.MDestinos, stringruta))
                 {
                     var ruta = RGestion.DirectRoutes().Find(e => e.ruta == stringruta);
-                    if (ruta.Destinos.From.GetType() == From.GetType())
+                    if (ruta.Destinos.From == From)
                     {
                         return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los Destinos no son iguales",
                              Data = ruta.GetPaquete() });

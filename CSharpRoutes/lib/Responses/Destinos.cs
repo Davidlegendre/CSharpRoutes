@@ -6,9 +6,9 @@ namespace CSharpRoutes.lib.Responses
 {
     public  class Destinos
     {
-        object _To = null;
-        object _From = null;
-        public object To { get; set; }
-        public object From { get; set; }
+        Type _To = null;
+        Type _From = null;
+        public Type To { get; set; }
+        public Type From { get; set; }
     }
 }
