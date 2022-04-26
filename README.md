@@ -1,7 +1,5 @@
 # CSharpRoutes
-CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop o descarguelo desde nuget
--  Clone Git > https://github.com/Davidlegendre/CSharpRoutes.git
--  Nuget > Install-Package CSharpRoutes -Version 1.0.4
+CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop
 
 ## Getting Started
 
@@ -17,11 +15,18 @@ Una vez compilado y haber referenciado el dll, puede usarlo añadiendo el using
 ```
 using CSharpRoutes.lib;
 ```
+En CSharpRoutes.lib, podemos encontrar a:
+-  Middlewares con la clase MW (MiddleWares)
+-  MRoutes que contiene las clases Get, Post, Put, Delete
+-  Responses con las clases: Destinos que se usa para Rutas Directas y ResponseRoutesNotice para comunicarse
+-  Gestiones con las clases: RGestion para Gestionar las rutas como agregar y saber si ya existe una y RMethod que contiene los metodos para consultas a las rutas
+-  Helpers con las clases: ComparerRoutes (uso interno se encarga de comparar las rutas), Metodos (Enum)
+-  Clase Rutas que contiene la base
 
 -  Para Crear Rutas puede seguir el ejemplo
 -  Para Get, si se quiere solo enviar datos use solo Accion, pero si quiere enviar y recibir datos use AccionFull
 ```
-Rutas.Get(new Get() { ruta = "nombre de la ruta", 
+RGestion.Get(new Get() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = () => { /funcion que retorne un object, no recibe nada/, 
 AccionFull = (obj)=>{ /funcion que retorne un object y recibe un object que puede ser un json o un objeto normal/ } } 
@@ -30,7 +35,7 @@ AccionFull = (obj)=>{ /funcion que retorne un object y recibe un object que pued
 
 Para Post
 ```
-Rutas.Post(new Post() { ruta = "nombre de la ruta", 
+RGestion.Post(new Post() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
@@ -38,7 +43,7 @@ Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
 
 Para Put
 ```
-Rutas.Put(new Put() { ruta = "nombre de la ruta", 
+RGestion.Put(new Put() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
@@ -46,14 +51,22 @@ Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
 
 Para Delete
 ```
-Rutas.Delete(new Delete() { ruta = "nombre de la ruta", 
+RGestion.Delete(new Delete() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
 ```
 
+Para Rutas Directas
+```
+RGestion.DirectRoute(new DirectRoute() { ruta = "nombre de la ruta"
+Destinos = /Objeto Destino To (Para) y From (De)/ }
+ });
+```
+
 -  Para todas las rutas si usa un Accion (AccionFull para Get), tendra que usar Middleware, le sera mas facil si envia json's.
 -  En los Middlewares puede concatenarlo como en express hasta llegar al metodo ultimo Next()
+-  Las Rutas Directas sirve para enviar paquetes desde una clase a otra sin instanciarla en esas mismas clases
 
 ## Obteniendo Rutas
 
@@ -73,6 +86,16 @@ RMethod.Put(string ruta, object json)
 RMethod.Delete(string ruta, object json)
 ```
 
+Enviar un Paquete en la ruta especifica para el objetivo especifico
+```
+RMethod.DirectRoute(string stringruta, object paquete, object To)
+```
+
+Recibir un Paquete en la ruta especifica del objetivo especifico
+```
+RMethod.DirectRoute(string stringruta, object From)
+```
+
 Todos devuelven un json que tiene estos campos en c#
 ```
 public class ReponseRoutesNotice
@@ -89,13 +112,20 @@ public class ReponseRoutesNotice
 
 Si quiere obtener solo el Data, use esto
 ```
-RMethod.GetData(object json);
+RGestion.GetData(object json);
 ```
 ejemplo:
 ```
-RMethod.GetData(RMethod.Get("/GetUsers"));
+RGestion.GetData(RGestion.Get("/GetUsers"));
 ```
-devolvera un json de solo Data (tipo JObject para ser exactos o sino un string da igual)
+
+Si quiere consultar las otras propiedades puede usar estos
+```
+RGestion.GetMensaje(object json);
+```
+```
+RGestion.GetResultado(object json);
+```
 
 ## Built With
 
