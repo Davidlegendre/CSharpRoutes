@@ -5,7 +5,7 @@
     <ApplicationIcon>CSharpRoutes-icon.ico</ApplicationIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.9</Version>
+    <Version>1.1.0</Version>
     <Authors>David Legendre</Authors>
     <Description>CSharpRoutes es una libreria para crear rutas al estilo Express pero orientado al desarrollo desktop</Description>
     <Copyright>By David Legendre</Copyright>
