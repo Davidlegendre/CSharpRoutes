@@ -16,6 +16,7 @@ namespace CSharpRoutes.lib.Helpers
         MGet = 1,
         MPost = 2,
         MPut = 3,
-        MDel = 4
+        MDel = 4,
+        MDestinos = 5
     }
 }

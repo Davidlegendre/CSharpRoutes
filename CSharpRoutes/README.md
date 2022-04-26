@@ -18,7 +18,7 @@ using CSharpRoutes.lib;
 En CSharpRoutes.lib, podemos encontrar a:
 -  Middlewares con la clase MW (MiddleWares)
 -  MRoutes que contiene las clases Get, Post, Put, Delete
--  Responses donde esta ResponseRoutesNotice que es el objeto que devuelve cada ruta
+-  Responses con las clases: Destinos que se usa para Rutas Directas y ResponseRoutesNotice para comunicarse
 -  Gestiones con las clases: RGestion para Gestionar las rutas como agregar y saber si ya existe una y RMethod que contiene los metodos para consultas a las rutas
 -  Helpers con las clases: ComparerRoutes (uso interno se encarga de comparar las rutas), Metodos (Enum)
 -  Clase Rutas que contiene la base
@@ -57,8 +57,16 @@ Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
 ```
 
+Para Rutas Directas
+```
+RGestion.DirectRoute(new DirectRoute() { ruta = "nombre de la ruta"
+Destinos = /Objeto Destino To (Para) y From (De)/ }
+ });
+```
+
 -  Para todas las rutas si usa un Accion (AccionFull para Get), tendra que usar Middleware, le sera mas facil si envia json's.
 -  En los Middlewares puede concatenarlo como en express hasta llegar al metodo ultimo Next()
+-  Las Rutas Directas sirve para enviar paquetes desde una clase a otra sin instanciarla en esas mismas clases
 
 ## Obteniendo Rutas
 
@@ -76,6 +84,16 @@ RMethod.Put(string ruta, object json)
 ```
 ```
 RMethod.Delete(string ruta, object json)
+```
+
+Enviar un Paquete en la ruta especifica para el objetivo especifico
+```
+RMethod.DirectRoute(string stringruta, object paquete, object To)
+```
+
+Recibir un Paquete en la ruta especifica del objetivo especifico
+```
+RMethod.DirectRoute(string stringruta, object From)
 ```
 
 Todos devuelven un json que tiene estos campos en c#

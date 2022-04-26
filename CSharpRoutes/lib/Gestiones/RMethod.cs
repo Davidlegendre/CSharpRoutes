@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CSharpRoutes.lib.Gestiones;
 using CSharpRoutes.lib.Responses;
 using CSharpRoutes.lib.Helpers;
+using CSharpRoutes.lib.MRoutes;
 
 namespace CSharpRoutes.lib.Gestiones
 {
@@ -173,7 +174,74 @@ namespace CSharpRoutes.lib.Gestiones
                 return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
         }
 
+        /// <summary>
+        /// DirectRoute Sirve para recibir y enviar paquetes a destinos preestablecidos
+        /// </summary>
+        /// <param name="stringruta">
+        /// la ruta a la cual se accedera
+        /// </param>
+        /// <param name="paquete">
+        /// El paquete que se enviara
+        /// </param>
+        /// <param name="To">
+        /// a donde va el paquete
+        /// </param>
+        /// <returns>
+        /// Json diciendo que el paquete ha sido entregado o algunos errores
+        /// </returns>
+        public static object DirectRoute(string stringruta, object paquete, object To)
+        {
+            if (!string.IsNullOrWhiteSpace(stringruta) && paquete!=null && To != null)
+            {
+                if (RGestion.IsRouteExits(Metodos.MDestinos, stringruta))
+                {
+                    var ruta = RGestion.DirectRoutes().Find(e => e.ruta == stringruta);
+                    if (ruta.Destinos.To.GetType() == To.GetType())
+                    {
+                        ruta.SetPaquete(paquete);
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Paquete Entregado" });
+                    }
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los destinos no son iguales" });
+                }
+                else
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+            }
+            else
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
+        }
 
+        /// <summary>
+        /// DirectRoute Sirve para recibir y enviar paquetes a destinos preestablecidos
+        /// </summary>
+        /// <param name="stringruta">
+        /// la ruta a la cual se accedera
+        /// </param>
+        /// <param name="From">
+        /// de quien es el paquete
+        /// </param>
+        /// <returns>
+        /// retorna json con el paquete o algunos errores
+        /// </returns>
+        public static object DirectRoute(string stringruta, object From)
+        {
+            if (!string.IsNullOrWhiteSpace(stringruta) && From != null)
+            {
+                if (RGestion.IsRouteExits(Metodos.MDestinos, stringruta))
+                {
+                    var ruta = RGestion.DirectRoutes().Find(e => e.ruta == stringruta);
+                    if (ruta.Destinos.From.GetType() == From.GetType())
+                    {
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los Destinos no son iguales",
+                             Data = ruta.GetPaquete() });
+                    }
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = true, Mensaje = "Los Destinos no son iguales" });
+                }
+                else
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+            }
+            else
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
+        }
     }
 
    

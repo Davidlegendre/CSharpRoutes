@@ -92,6 +92,12 @@ namespace CSharpRoutes.lib.Gestiones
             new ComparerRoutes(deleteRuta);
             Rutas.RDelete.Add(deleteRuta);
         }
+        public static void DirectRoute(DirectRoute directRoute)
+        {
+            new ComparerRoutes(Metodos.MDestinos, directRoute.ruta);
+            new ComparerRoutes(directRoute);
+            Rutas.RDirectRoutes.Add(directRoute);
+        }
 
         /// <summary>
         /// Obtiene la lista completa de las rutas Post
@@ -124,6 +130,11 @@ namespace CSharpRoutes.lib.Gestiones
         internal static List<Delete> Delete()
         {
             return Rutas.RDelete;
+        }
+
+        internal static List<DirectRoute> DirectRoutes()
+        {
+            return Rutas.RDirectRoutes;
         }
 
         public static object GetData(object json)

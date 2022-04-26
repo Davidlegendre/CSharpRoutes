@@ -129,10 +129,19 @@ namespace CSharpRoutes.lib.Helpers
             else if (ruta.Middleware == null && ruta.Accion != null)
                 throw new Exception("Añada un Middleware a la ruta " + ruta.ruta);
         }
+
+        internal ComparerRoutes(DirectRoute ruta)
+        {
+            //Destinos
+            if (ruta.Destinos == null)
+                throw new Exception("Coloque destinos para saber de quien es y a donde va: " + ruta.ruta);
+        }
+
         List<Get> RGet = RGestion.Get();
         List<Post> RPost = RGestion.Post();
         List<Put> RPut = RGestion.Put();
         List<Delete> RDelete = RGestion.Delete();
+        List<DirectRoute> DirectRoutes = RGestion.DirectRoutes();
 
     }
 }
