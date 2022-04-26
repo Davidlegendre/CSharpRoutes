@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpRoutes.lib
+namespace CSharpRoutes.lib.Responses
 {
     public class ReponseRoutesNotice
     {

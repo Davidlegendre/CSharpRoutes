@@ -15,11 +15,18 @@ Una vez compilado y haber referenciado el dll, puede usarlo añadiendo el using
 ```
 using CSharpRoutes.lib;
 ```
+En CSharpRoutes.lib, podemos encontrar a:
+-  Middlewares con la clase MW (MiddleWares)
+-  MRoutes que contiene las clases Get, Post, Put, Delete
+-  Responses donde esta ResponseRoutesNotice que es el objeto que devuelve cada ruta
+-  Gestiones con las clases: RGestion para Gestionar las rutas como agregar y saber si ya existe una y RMethod que contiene los metodos para consultas a las rutas
+-  Helpers con las clases: ComparerRoutes (uso interno se encarga de comparar las rutas), Metodos (Enum)
+-  Clase Rutas que contiene la base
 
 -  Para Crear Rutas puede seguir el ejemplo
 -  Para Get, si se quiere solo enviar datos use solo Accion, pero si quiere enviar y recibir datos use AccionFull
 ```
-Rutas.Get(new Get() { ruta = "nombre de la ruta", 
+RGestion.Get(new Get() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = () => { /funcion que retorne un object, no recibe nada/, 
 AccionFull = (obj)=>{ /funcion que retorne un object y recibe un object que puede ser un json o un objeto normal/ } } 
@@ -28,7 +35,7 @@ AccionFull = (obj)=>{ /funcion que retorne un object y recibe un object que pued
 
 Para Post
 ```
-Rutas.Post(new Post() { ruta = "nombre de la ruta", 
+RGestion.Post(new Post() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
@@ -36,7 +43,7 @@ Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
 
 Para Put
 ```
-Rutas.Put(new Put() { ruta = "nombre de la ruta", 
+RGestion.Put(new Put() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
@@ -44,7 +51,7 @@ Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
 
 Para Delete
 ```
-Rutas.Delete(new Delete() { ruta = "nombre de la ruta", 
+RGestion.Delete(new Delete() { ruta = "nombre de la ruta", 
 Middleware = /objeto tipo Middleware/,
 Accion = (obj)=>{ /funcion que recibe y envia un object/ } }
  });
@@ -87,13 +94,20 @@ public class ReponseRoutesNotice
 
 Si quiere obtener solo el Data, use esto
 ```
-RMethod.GetData(object json);
+RGestion.GetData(object json);
 ```
 ejemplo:
 ```
-RMethod.GetData(RMethod.Get("/GetUsers"));
+RGestion.GetData(RGestion.Get("/GetUsers"));
 ```
-devolvera un json de solo Data (tipo JObject para ser exactos o sino un string da igual)
+
+Si quiere consultar las otras propiedades puede usar estos
+```
+RGestion.GetMensaje(object json);
+```
+```
+RGestion.GetResultado(object json);
+```
 
 ## Built With
 

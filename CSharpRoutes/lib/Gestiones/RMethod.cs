@@ -5,8 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpRoutes.lib.Gestiones;
+using CSharpRoutes.lib.Responses;
+using CSharpRoutes.lib.Helpers;
 
-namespace CSharpRoutes.lib
+namespace CSharpRoutes.lib.Gestiones
 {
     public class RMethod
     {
@@ -27,36 +30,36 @@ namespace CSharpRoutes.lib
         {
             if (!string.IsNullOrWhiteSpace(stringruta))
             {
-                if (Rutas.IsRouteExits(Metodos.MGet, stringruta))
+                if (RGestion.IsRouteExits(Metodos.MGet, stringruta))
                 {
                     if (json == null)
                     {
-                        lib.ReponseRoutesNotice response = new ReponseRoutesNotice();
+                        ReponseRoutesNotice response = new ReponseRoutesNotice();
                         response.Resultado = true;
                         response.Mensaje = "json nulo";
-                        response.Data =  Rutas.Get().Find(e => e.ruta == stringruta).Accion.Invoke() ;
+                        response.Data =  RGestion.Get().Find(e => e.ruta == stringruta).Accion.Invoke() ;
                         return JsonConvert.SerializeObject(response);
                     }
                     else
                     {
 
-                        var mid = (lib.ReponseRoutesNotice)Rutas.Get().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
+                        var mid = (ReponseRoutesNotice)RGestion.Get().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
                         if (mid.Resultado == true)
                         {
-                            lib.ReponseRoutesNotice response = new ReponseRoutesNotice();
+                            ReponseRoutesNotice response = new ReponseRoutesNotice();
                             response.Mensaje = mid.Mensaje;
                             response.Resultado = mid.Resultado;
-                            response.Data =Rutas.Get().Find(e => e.ruta == stringruta).AccionFull.Invoke(json) ;
+                            response.Data =RGestion.Get().Find(e => e.ruta == stringruta).AccionFull.Invoke(json) ;
                             return JsonConvert.SerializeObject(response);
                         }
                         else
-                            return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
+                            return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
                     }
                 }else
-                    return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
             }
             else
-                return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta" });
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta" });
         }
 
         /// <summary>
@@ -75,25 +78,25 @@ namespace CSharpRoutes.lib
         {
             if (!string.IsNullOrWhiteSpace(stringruta) && !string.IsNullOrWhiteSpace(json))
             {
-                if (Rutas.IsRouteExits(Metodos.MPost, stringruta))
+                if (RGestion.IsRouteExits(Metodos.MPost, stringruta))
                 {
-                    var mid = (lib.ReponseRoutesNotice)Rutas.Post().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
+                    var mid = (ReponseRoutesNotice)RGestion.Post().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
                     if (mid.Resultado == true)
                     {
-                        lib.ReponseRoutesNotice response = new ReponseRoutesNotice();
+                        ReponseRoutesNotice response = new ReponseRoutesNotice();
                         response.Mensaje = mid.Mensaje;
                         response.Resultado = mid.Resultado;
-                        response.Data =  Rutas.Post().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
+                        response.Data =  RGestion.Post().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
                         return JsonConvert.SerializeObject(response);
                     }
                     else
-                        return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
                 }
                 else
-                    return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
             }
             else
-                return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
         }
         /// <summary>
         /// Metodo Put, sirve para modificar algun dato
@@ -111,25 +114,25 @@ namespace CSharpRoutes.lib
         {
            if (!string.IsNullOrWhiteSpace(stringruta) && !string.IsNullOrWhiteSpace(json))
             {
-                if (Rutas.IsRouteExits(Metodos.MPut, stringruta))
+                if (RGestion.IsRouteExits(Metodos.MPut, stringruta))
                 {
-                    var mid = (lib.ReponseRoutesNotice)Rutas.Put().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
+                    var mid = (ReponseRoutesNotice)RGestion.Put().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
                     if (mid.Resultado == true)
                     {
-                        lib.ReponseRoutesNotice response = new ReponseRoutesNotice();
+                        ReponseRoutesNotice response = new ReponseRoutesNotice();
                         response.Mensaje = mid.Mensaje;
                         response.Resultado = mid.Resultado;
-                        response.Data =Rutas.Put().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
+                        response.Data =RGestion.Put().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
                         return JsonConvert.SerializeObject(response);
                     }
                     else
-                        return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
                 }
                 else
-                    return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
             }
             else
-                return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
 
         }
 
@@ -149,31 +152,27 @@ namespace CSharpRoutes.lib
         {
             if (!string.IsNullOrWhiteSpace(stringruta) && !string.IsNullOrWhiteSpace(json))
             {
-                if (Rutas.IsRouteExits(Metodos.MDel, stringruta))
+                if (RGestion.IsRouteExits(Metodos.MDel, stringruta))
                 {
-                    var mid = (lib.ReponseRoutesNotice)Rutas.Delete().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
+                    var mid = (ReponseRoutesNotice)RGestion.Delete().Find(e => e.ruta == stringruta).Middleware.Invoke(json);
                     if (mid.Resultado == true)
                     {
-                        lib.ReponseRoutesNotice response = new ReponseRoutesNotice();
+                        ReponseRoutesNotice response = new ReponseRoutesNotice();
                         response.Mensaje = mid.Mensaje;
                         response.Resultado = mid.Resultado;
-                        response.Data = Rutas.Delete().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
+                        response.Data = RGestion.Delete().Find(e => e.ruta == stringruta).Accion.Invoke(json) ;
                         return JsonConvert.SerializeObject(response);
                     }
                     else
-                        return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
+                        return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = mid.Mensaje });
                 }
                 else
-                    return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
+                    return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "Esa Ruta No Existe" });
             }
             else
-                return JsonConvert.SerializeObject(new lib.ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
+                return JsonConvert.SerializeObject(new ReponseRoutesNotice() { Resultado = false, Mensaje = "La ruta o el json estan vacios" });
         }
 
-        public static object GetData(object json)
-        {
-            return JObject.Parse((string)json).GetValue("Data").ToString();
-        }
 
     }
 

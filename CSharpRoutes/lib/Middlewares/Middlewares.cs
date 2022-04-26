@@ -6,13 +6,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using CSharpRoutes.lib.Responses;
 
-namespace CSharpRoutes.lib
+namespace CSharpRoutes.lib.Middlewares
 {
-    public class Middlewares
+    public class MW
     {
        
-        lib.ReponseRoutesNotice _result = new lib.ReponseRoutesNotice();
+        ReponseRoutesNotice _result = new ReponseRoutesNotice();
         
         /// <summary>
         /// Obtiene el Resultado de las comparaciones, si algun resultado es falso devuelve el resultado y deja de comprobar
@@ -20,12 +21,12 @@ namespace CSharpRoutes.lib
         /// <returns name="lib.ReponseRoutesNotice">
         /// ResponseRoutesNotice: contiene resultado (bool), Mensaje (string), Data (Object)
         /// </returns>
-        public lib.ReponseRoutesNotice Next()
+        public ReponseRoutesNotice Next()
         {
             return _result;
         }
 
-        void change(lib.ReponseRoutesNotice r)
+        void change(ReponseRoutesNotice r)
         {
             _result = r;
         }
@@ -43,7 +44,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Retorna un Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsJson(object json)
+        public MW IsJson(object json)
         {
             if (verificar())
             {
@@ -73,7 +74,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsComplete(object json, string[] campos)
+        public MW IsComplete(object json, string[] campos)
         {
             if (verificar())
             {
@@ -117,7 +118,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsBool(object json, string Campo) {
+        public MW IsBool(object json, string Campo) {
 
             if (verificar())
             {
@@ -148,7 +149,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsInt(object json, string Campo)
+        public MW IsInt(object json, string Campo)
         {
             if (verificar())
             {
@@ -180,7 +181,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsString(object json, string campo)
+        public MW IsString(object json, string campo)
         {
             if (verificar())
             {
@@ -210,7 +211,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsNotNull(object json, string campo)
+        public MW IsNotNull(object json, string campo)
         {
             if (verificar())
             {
@@ -239,7 +240,7 @@ namespace CSharpRoutes.lib
         /// <returns>
         /// Middleware para continuar con next()
         /// </returns>
-        public Middlewares IsPersonalizado(object json,Func<object, lib.ReponseRoutesNotice> func)
+        public MW IsPersonalizado(object json,Func<object, ReponseRoutesNotice> func)
         {
             if (verificar())
             {
