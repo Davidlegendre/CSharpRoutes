@@ -34,6 +34,8 @@ namespace CSharpRoutes.lib.Gestiones
                     return Put().Count(e => e.ruta.ToLower() == ruta.ToLower()) != 0;
                 case Metodos.MDel:
                     return Delete().Count(e => e.ruta.ToLower() == ruta.ToLower()) != 0;
+                case Metodos.MDestinos:
+                    return DirectRoutes().Count(e => e.ruta.ToLower() == ruta.ToLower()) != 0;
                 default:
                     return false;
             }
